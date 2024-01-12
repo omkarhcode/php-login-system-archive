@@ -69,3 +69,20 @@ button:hover {
   color: #e30000;
   padding-top: 20px;
 }
+
+.password-container {
+  position: relative;
+}
+.password-container input#password-field {
+  width: 100%;
+}
+.toggle-password {
+  top: 10px;
+  position: absolute;
+  right: 10px;
+  z-index: 100;
+}
+
+.toggle-password i {
+  color: #5e636e !important;
+}

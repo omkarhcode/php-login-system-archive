@@ -2,7 +2,11 @@
 
 <form action="includes/formhandler.inc.php" method="post">
     <input type="text" name="username" placeholder="Username">
-    <input type="password" name="pwd" placeholder="Password">
+    <div class="password-container">
+        <input type="password" name="pwd" placeholder="Password" id="password-field">
+        <span toggle="#password-field" class="toggle-password"><i class="fa fa-eye"></i></span>
+    </div>
+    <!-- <input type="password" name="pwd" placeholder="Password"> -->
     <input type="text" name="email" placeholder="E-mail">
     <button>Signup</button>
 </form>
