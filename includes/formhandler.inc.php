@@ -10,14 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($pwd) || empty($email)) {
         header("Location: ../index.php?error=emptyfields&username=" . $username . "&email=" . $email);
         die();
-    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../index.php?error=invalidemailusername");
-        die();
     } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         header("Location: ../index.php?error=invalidemail&username=" . $username);
-        die();
-    } else if (!preg_match("/^[a-zA-Z0-9]*$/", $username)) {
-        header("Location: ../index.php?error=invalidusername&email=" . $email);
         die();
     } else if (strlen($pwd) < 6) {
         header("Location: ../index.php?error=passwordlength&username=" . $username . "&email=" . $email);
@@ -33,8 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $stmt = $pdo->prepare($query);
 
+
+        $options = [
+            'cost' => 12,
+        ];
+
+        $hashedPwd = password_hash($pwd, PASSWORD_BCRYPT, $options);
+
         $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':pwd', $pwd);
+        $stmt->bindParam(':pwd', $hashedPwd);
         $stmt->bindParam(':email', $email);
 
         $stmt->execute();
